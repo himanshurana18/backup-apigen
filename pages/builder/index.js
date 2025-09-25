@@ -244,7 +244,7 @@ export default function Builder() {
           </div>
         </div>
       )}
-      <JsonViewer />
+      {/* <JsonViewer /> */}
     </>
   );
 }

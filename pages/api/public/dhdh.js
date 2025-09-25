@@ -1,24 +1,5 @@
-export const generateApiWithTokenSupport = (modelName, fields) => {
-    const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
-    const ModelName = capitalize(modelName);
-  
-    const normalFields = fields.filter(f => !f.refModel).map(f => f.name);
-    const refFields = fields.filter(f => f.refModel);
-    const allFields = [...normalFields, ...refFields.map(f => f.name), "user"].join(", ");
-  
-    // Get searchable fields (excluding image and file types)
-    const searchableFields = fields
-      .filter(f => !f.refModel && f.datatype !== 'toggleinput' && f.datatype !== 'multiimageselect' && f.datatype !== "stringweblink" && f.datatype !== "password")
-      .map(f => f.name);
-    const searchFieldsString = searchableFields.map(f => `'${f}'`).join(', ');
-  
-    // Get reference field names
-    const refFieldNames = refFields.map(f => f.name);
-    const refFieldNamesString = refFieldNames.map(f => `'${f}'`).join(', ');
-  
-    return `
-  import { dbConnect } from "@/lib/dbConnect";
-  import { ${ModelName} } from "@/models/${ModelName}";
+import { dbConnect } from "@/lib/dbConnect";
+  import { Dhdh } from "@/models/Dhdh";
   import { verifyApiToken } from "@/lib/verifyApiToken";
   import Cors from 'cors';
   
@@ -80,8 +61,8 @@ export const generateApiWithTokenSupport = (modelName, fields) => {
         } = req.query;
   
         if (id) {
-          let query = ${ModelName}.findById(id);
-          const refFields = [${refFieldNamesString}];
+          let query = Dhdh.findById(id);
+          const refFields = [];
           if (refFields.length) {
             refFields.forEach(field => {
               query = query.populate(field);
@@ -99,7 +80,7 @@ export const generateApiWithTokenSupport = (modelName, fields) => {
         
         // Handle search
         if (search && typeof search === 'string') {
-          const searchableFields = [${searchFieldsString}];
+          const searchableFields = ['djdj'];
           query.$or = searchableFields.map(field => ({
             [field]: { $regex: search, $options: 'i' }
           }));
@@ -129,7 +110,7 @@ export const generateApiWithTokenSupport = (modelName, fields) => {
         // Handle custom populate
         const customPopulate = populateFields ? 
           populateFields.split(',').map(field => field.trim()) : 
-          [${refFieldNamesString}];
+          [];
   
         // Handle sorting
         const sortFields = sort.split(',').map(field => {
@@ -138,8 +119,8 @@ export const generateApiWithTokenSupport = (modelName, fields) => {
           return [fieldName, order];
         });
   
-        const total = await ${ModelName}.countDocuments(query);
-        let queryBuilder = ${ModelName}.find(query)
+        const total = await Dhdh.countDocuments(query);
+        let queryBuilder = Dhdh.find(query)
           .select(selectFields)
           .sort(sortFields)
           .skip((page - 1) * limit)
@@ -169,8 +150,8 @@ export const generateApiWithTokenSupport = (modelName, fields) => {
           return res.status(403).json({ error: "Permission denied" });
         }
   
-        const { ${allFields}, seoTitle, seoDescription, focusKeywords, canonicalUrl, metaRobots, openGraphTitle, openGraphDescription } = req.body;
-        const doc = await ${ModelName}.create({ ${allFields}, seoTitle, seoDescription, focusKeywords, canonicalUrl, metaRobots, openGraphTitle, openGraphDescription });
+        const { djdj, user, seoTitle, seoDescription, focusKeywords, canonicalUrl, metaRobots, openGraphTitle, openGraphDescription } = req.body;
+        const doc = await Dhdh.create({ djdj, user, seoTitle, seoDescription, focusKeywords, canonicalUrl, metaRobots, openGraphTitle, openGraphDescription });
         return res.json(doc);
       }
   
@@ -179,8 +160,8 @@ export const generateApiWithTokenSupport = (modelName, fields) => {
           return res.status(403).json({ error: "Permission denied" });
         }
   
-        const { _id, ${allFields}, seoTitle, seoDescription, focusKeywords, canonicalUrl, metaRobots, openGraphTitle, openGraphDescription } = req.body;
-        await ${ModelName}.updateOne({ _id }, { ${allFields}, seoTitle, seoDescription, focusKeywords, canonicalUrl, metaRobots, openGraphTitle, openGraphDescription });
+        const { _id, djdj, user, seoTitle, seoDescription, focusKeywords, canonicalUrl, metaRobots, openGraphTitle, openGraphDescription } = req.body;
+        await Dhdh.updateOne({ _id }, { djdj, user, seoTitle, seoDescription, focusKeywords, canonicalUrl, metaRobots, openGraphTitle, openGraphDescription });
         return res.json(true);
       }
   
@@ -190,7 +171,7 @@ export const generateApiWithTokenSupport = (modelName, fields) => {
         }
   
         const { id } = req.query;
-        await ${ModelName}.deleteOne({ _id: id });
+        await Dhdh.deleteOne({ _id: id });
         return res.json(true);
       }
   
@@ -200,6 +181,3 @@ export const generateApiWithTokenSupport = (modelName, fields) => {
       res.status(500).json({ error: 'Internal server error', message: error.message });
     }
   }
-    `.trim();
-  };
-  

@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Aside from "@/components/Aside";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import SplineScene from "@/components/SplineScene";
 
 export default function Home() {
   return (
@@ -12,7 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <LoadingSpinner />
+      <SplineScene />
     </>
   );
 }

@@ -1,6 +1,4 @@
-export const generatePageCode = (modelName) => {
-  return `
-  import axios from "axios";
+import axios from "axios";
   import Link from "next/link";
   import { useEffect, useState, useRef } from "react";
   import { FaPlus } from "react-icons/fa6";
@@ -11,7 +9,7 @@ export const generatePageCode = (modelName) => {
   import { toast } from "react-toastify";
   import Image from "next/image";
   
-  export default function ${modelName}() {
+  export default function dhdh() {
     const [data, setData] = useState([]);
     const [total, setTotal] = useState(0);
     const [fields, setFields] = useState([]);
@@ -84,7 +82,7 @@ export const generatePageCode = (modelName) => {
     };
   
     const fetchFields = async () => {
-      const res = await fetch('/api/models/${modelName.toLowerCase()}');
+      const res = await fetch('/api/models/dhdh');
       const model = await res.json();
       
       // Set all available fields excluding password
@@ -92,7 +90,7 @@ export const generatePageCode = (modelName) => {
       setAllFields(availableFields);
       
       // Get stored fields from localStorage or use default
-      const storedFields = localStorage.getItem(\`${modelName.toLowerCase()}_fields\`);
+      const storedFields = localStorage.getItem(`dhdh_fields`);
       if (storedFields) {
         const parsedFields = JSON.parse(storedFields);
         // Filter to ensure stored fields still exist in available fields
@@ -113,12 +111,12 @@ export const generatePageCode = (modelName) => {
       const defaultFields = availableFields.slice(0, Math.min(4, availableFields.length));
       setFields(defaultFields);
       // Store default fields
-      localStorage.setItem(\`${modelName.toLowerCase()}_fields\`, JSON.stringify(defaultFields.map(f => f.name)));
+      localStorage.setItem(`dhdh_fields`, JSON.stringify(defaultFields.map(f => f.name)));
     };
   
     const fetchData = async () => {
-      const searchQuery = searchTerm ? \`&search=\${encodeURIComponent(searchTerm)}\` : '';
-      const res = await fetch(\`/api/${modelName.toLowerCase()}?page=\${page}&limit=\${limit}\${searchQuery}\`);
+      const searchQuery = searchTerm ? `&search=${encodeURIComponent(searchTerm)}` : '';
+      const res = await fetch(`/api/dhdh?page=${page}&limit=${limit}${searchQuery}`);
       const json = await res.json();
       setData(json.items);
       setTotal(json.total);
@@ -132,7 +130,7 @@ export const generatePageCode = (modelName) => {
 
     try {
       try{
-      await axios.delete(\`/api/${modelName.toLowerCase()}?id=\${id}\`);
+      await axios.delete(`/api/dhdh?id=${id}`);
       fetchData(); // Refresh data after deletion
       }catch(error){
         if(error.response.status === 403){
@@ -149,7 +147,7 @@ export const generatePageCode = (modelName) => {
   };
   const isImageUrl = (url) =>
   typeof url === 'string' &&
-  /\.(jpg|jpeg|png|gif)$/i.test(url);
+  /.(jpg|jpeg|png|gif)$/i.test(url);
   
     // Helper to truncate long strings
 const truncate = (text, length = 40) =>
@@ -211,7 +209,7 @@ const renderCell = (field, value) => {
   if (field.type === 'image' || isImageUrl(value)) {
     return (
       <img
-        src={\`\${window.location.origin}/api/media-serve/\${value}\`}
+        src={`${window.location.origin}/api/media-serve/${value}`}
         alt="thumbnail"
         style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }}
       />
@@ -228,7 +226,7 @@ const renderCell = (field, value) => {
     if (value.length > 0 && isImageUrl(value[0])) {
       return (
         <img
-          src={\`\${window.location.origin}/api/media-serve/\${value[0]}\`}
+          src={`${window.location.origin}/api/media-serve/${value[0]}`}
           alt="thumbnail"
           style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }}
         />
@@ -264,12 +262,12 @@ const renderCell = (field, value) => {
       
       setFields(newFields);
       // Store selected fields in localStorage
-      localStorage.setItem(\`${modelName.toLowerCase()}_fields\`, JSON.stringify(newFields.map(f => f.name)));
+      localStorage.setItem(`dhdh_fields`, JSON.stringify(newFields.map(f => f.name)));
     };
 
     // Add this useEffect to handle page changes
     useEffect(() => {
-      const storedFields = localStorage.getItem(\`${modelName.toLowerCase()}_fields\`);
+      const storedFields = localStorage.getItem(`dhdh_fields`);
       if (storedFields) {
         const parsedFields = JSON.parse(storedFields);
         const validFields = allFields.filter(f => parsedFields.includes(f.name));
@@ -387,7 +385,7 @@ const renderCell = (field, value) => {
                 {existingModels.length > 0 ? (
                   existingModels.map((model, index) => (
                     <li key={index}>
-                      <Link href={\`/manager/\${model.name.toLowerCase()}\`}>{model.name}</Link>
+                      <Link href={`/manager/${model.name.toLowerCase()}`}>{model.name}</Link>
                     </li>
                   ))
                 ) : (
@@ -400,7 +398,7 @@ const renderCell = (field, value) => {
           <div className="manager_page_total_list">
             <div className="manager_page_to_title">
               <div>
-                <h2>${modelName}</h2>
+                <h2>dhdh</h2>
                 <p>{total} entries found</p>
               </div>
               <div className="existing_mo_co_de_addbtn">
@@ -440,7 +438,7 @@ const renderCell = (field, value) => {
                     )}
                   </div>
                  
-                  <Link href='/manager/${modelName.toLowerCase()}/create'>
+                  <Link href='/manager/dhdh/create'>
                     <button><FaPlus /> Create new entry</button>
                   </Link>
                 </div>
@@ -493,7 +491,7 @@ const renderCell = (field, value) => {
                            <div className="field_not_found">
                              <img src="/img/document.png" alt="" />
                                <h4>Add your first data to this Content-Type</h4>
-                                <Link href='/manager/${modelName.toLowerCase()}/create'>
+                                <Link href='/manager/dhdh/create'>
                                   <button><FaPlus /> Create new entry</button>
                                </Link>
                              </div>
@@ -516,7 +514,7 @@ const renderCell = (field, value) => {
                           >
                             <LuFileJson2 />
                           </button>
-                            <Link href={\`/manager/${modelName.toLowerCase()}/edit/\${item._id}\`}>
+                            <Link href={`/manager/dhdh/edit/${item._id}`}>
                             <button><RiEdit2Line /></button>
                           </Link>
                           <button onClick={() => handleDelete(item._id)}><RiDeleteBinLine /></button>
@@ -546,5 +544,3 @@ const renderCell = (field, value) => {
       </>
     );
   }
-  `.trim();
-};

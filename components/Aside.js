@@ -5,10 +5,22 @@ import { MdOutlinePermMedia } from "react-icons/md";
 import { SiCodecrafters } from "react-icons/si";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlinePowerSettingsNew } from "react-icons/md";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Aside() {
   const { data: session } = useSession();
+  const [activeLink, setActiveLink] = useState("/");
+  const router = useRouter();
+  const handleLinkChange = (link) => {
+    setActiveLink(link);
+  };
+
+  useEffect(() => {
+    setActiveLink(router.pathname);
+  }, [router.pathname]);
 
   if (session) {
     return (
@@ -18,29 +30,44 @@ export default function Aside() {
             <img src="/img/logo.png" alt="Logo" />
           </div>
           <div className="aside_left_nav">
-            <Link href="/">
+            <Link href="/" className={activeLink === "/" ? "active" : ""}>
               <IoHomeOutline />
               <span>Home</span>
             </Link>
-            <Link href="/manager">
+            <Link
+              href="/manager"
+              className={activeLink === "/manager" ? "active" : ""}
+            >
               <BiLeaf />
               <span>Content Manager</span>
             </Link>
-            <Link href="/">
+            <Link
+              href="/media"
+              className={activeLink === "/media" ? "active" : ""}
+            >
               <MdOutlinePermMedia />
               <span>Media Library</span>
             </Link>
-            <Link href="/builder">
-              <SiCodecrafters />
-              <span>Content-Type Builder</span>
-            </Link>
-            <Link href="/">
+            {process.env.NODE_ENV === "development" && (
+              <Link
+                href="/builder"
+                className={activeLink === "/builder" ? "active" : ""}
+              >
+                <SiCodecrafters />
+                <span>Content-Type Builder</span>
+              </Link>
+            )}
+
+            <Link
+              href="/setting/overview"
+              className={activeLink === "/setting/overview" ? "active" : ""}
+            >
               <IoSettingsOutline />
               <span>Settings</span>
             </Link>
           </div>
           <div className="accout_setting_ico_aside">
-            <button>
+            <button onClick={() => signOut({ callbackUrl: "/auth/signin" })}>
               <MdOutlinePowerSettingsNew />{" "}
             </button>
           </div>
