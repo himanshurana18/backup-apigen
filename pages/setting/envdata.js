@@ -294,6 +294,7 @@ export default function EnvData() {
                                     <th>Key</th>
                                     <th>Value</th>
                                     {activeTab === 'db' && <th>Description</th>}
+                                    }
                                     <th className="actions">Actions</th>
                                 </tr>
                             </thead>
