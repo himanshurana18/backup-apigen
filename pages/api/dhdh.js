@@ -2,7 +2,7 @@ import { dbConnect } from "@/lib/dbConnect";
 import { Dhdh } from "@/models/Dhdh";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { checkPermission, PERMISSIONS, hasPermission } from "@/lib/rbac";
+import { PERMISSIONS, hasPermission } from "@/lib/rbac";
 import { withDynamicModels, getModelForApi } from "@/lib/apiUtils";
 
 

@@ -31,10 +31,9 @@ export default function EnvData() {
     const canDelete = hasPermission(session?.user?.userRole, PERMISSIONS.DELETE);
 
     useEffect(() => {
-        // if (!hasRouteAccess(session?.user?.userRole, '/setting/envdata')) {
-        //     router.push('/');
-        //     return;
-        // }
+        if (!hasRouteAccess(session?.user?.userRole, '/setting/envdata')) {
+            return;
+        }
         loadEnvVars();
         loadEnvFile();
     }, [session]);

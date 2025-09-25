@@ -1,5 +1,5 @@
-import { connectDB } from '../../../lib/db';
-import EnvVar from '../../../models/EnvVar';
+import { connectDB } from '@/lib/db';
+import EnvVar from '@/models/EnvVar';
 
 export default async function handler(req, res) {
     await connectDB();

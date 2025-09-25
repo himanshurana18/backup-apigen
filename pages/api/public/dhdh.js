@@ -1,7 +1,7 @@
 import { dbConnect } from "@/lib/dbConnect";
-  import { Dhdh } from "@/models/Dhdh";
-  import { verifyApiToken } from "@/lib/verifyApiToken";
-  import Cors from 'cors';
+import { Dhdh } from "@/models/Dhdh";
+import { verifyApiToken } from "@/lib/verifyApiToken";
+import Cors from 'cors';
   
   // Initialize CORS middleware
   const cors = Cors({

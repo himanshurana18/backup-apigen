@@ -5,7 +5,7 @@ import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import { getServerSession } from "next-auth/next";
-import { checkPermission, PERMISSIONS, hasPermission } from "@/lib/rbac";
+import { PERMISSIONS, hasPermission } from "@/lib/rbac";
 import { authOptions } from './auth/[...nextauth]';
 
 const checkAuth = async (req, res) => {

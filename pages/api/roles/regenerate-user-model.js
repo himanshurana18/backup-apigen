@@ -1,18 +1,18 @@
 import ModelSchema from '@/models/ModelSchema';
-import { connectDB } from '@/lib/db';
+import { dbConnect } from '@/lib/dbConnect';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]';
 import { hasPermission, PERMISSIONS } from '@/lib/rbac';
 import { Role } from '@/models/Role';
 import fs from 'fs';
 import path from 'path';
-import { generateModelCode } from '@/template/ModelCompo';
-import { generateApiCode } from '@/template/ApiCompo';
-import { generateApiWithTokenSupport } from '@/template/externalApiCompo';
-import { generatePageCode } from '@/template/PageCompo';
-import { generateComponentCode } from '@/template/ComponentCompo';
-import { generateCreateFormCode } from '@/template/CreatePage';
-import { generateEditFormCode } from '@/template/EditPage';
+import { generateModelCode } from '@/templates/ModelCompo';
+import { generateApiCode } from '@/templates/ApiCompo';
+import { generateApiWithTokenSupport } from '@/templates/externalApiCompo';
+import { generatePageCode } from '@/templates/pageCompo';
+import { generateComponentCode } from '@/templates/ComponentCompo';
+import { generateCreateFormCode } from '@/templates/CreatePage';
+import { generateEditFormCode } from '@/templates/EditPage';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import sizeOf from 'image-size';
-import { checkPermission, PERMISSIONS, hasPermission } from "@/lib/rbac";
+import { PERMISSIONS, hasPermission } from "@/lib/rbac";
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]';
 

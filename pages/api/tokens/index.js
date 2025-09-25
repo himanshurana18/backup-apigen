@@ -3,7 +3,7 @@ import APIToken from "@/models/APIToken";
 import { v4 as uuidv4 } from "uuid";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
-import { checkPermission, PERMISSIONS, hasPermission } from "@/lib/rbac";
+import { PERMISSIONS, hasPermission } from "@/lib/rbac";
 
 const checkAuth = async (req, res) => {
   const session = await getServerSession(req, res, authOptions);

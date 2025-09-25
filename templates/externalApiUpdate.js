@@ -109,6 +109,14 @@ export default async function handler(req, res) {
       if (filter) {
         try {
           const filterObj = JSON.parse(filter);
+          // Convert string 'true'/'false' to boolean values
+          Object.keys(filterObj).forEach(key => {
+            if (filterObj[key] === 'true') {
+              filterObj[key] = true;
+            } else if (filterObj[key] === 'false') {
+              filterObj[key] = false;
+            }
+          });
           Object.assign(query, filterObj);
         } catch (error) {
           return res.status(400).json({ error: "Invalid filter format" });

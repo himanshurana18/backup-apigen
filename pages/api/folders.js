@@ -1,7 +1,7 @@
 // pages/api/folders.js
 import fs from 'fs';
 import path from 'path';
-import { checkPermission, PERMISSIONS, hasPermission } from "@/lib/rbac";
+import { PERMISSIONS, hasPermission } from "@/lib/rbac";
 import { getServerSession } from 'next-auth';
 import { authOptions } from './auth/[...nextauth]';
 

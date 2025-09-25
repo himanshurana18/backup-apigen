@@ -2,7 +2,7 @@ import { dbConnect } from "@/lib/dbConnect";
 import APIToken from '@/models/APIToken';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { checkPermission, PERMISSIONS, hasPermission } from "@/lib/rbac";
+import { PERMISSIONS, hasPermission } from "@/lib/rbac";
 
 const checkAuth = async (req, res) => {
     const session = await getServerSession(req, res, authOptions);

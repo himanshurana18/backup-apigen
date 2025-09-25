@@ -1,5 +1,5 @@
 import { dbConnect } from "@/lib/dbConnect";
-import { User } from "@/models/User";
+import { User } from "@/models/user";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import bcrypt from "bcryptjs";

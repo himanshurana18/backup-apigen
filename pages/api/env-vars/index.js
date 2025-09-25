@@ -1,5 +1,5 @@
-import { connectDB } from '../../../lib/db';
-import EnvVar from '../../../models/EnvVar';
+import { connectDB } from '@/lib/db';
+import EnvVar from '@/models/EnvVar';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 

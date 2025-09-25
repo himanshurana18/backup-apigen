@@ -1,6 +1,6 @@
 import { Role } from '@/models/Role';
 import { PERMISSIONS, ROLES, ROLE_PERMISSIONS, updateRBACFromRole, hasPermission } from '@/lib/rbac';
-import { connectDB } from '@/lib/db';
+import { dbConnect } from '@/lib/dbConnect';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]';
 import ModelSchema from '@/models/ModelSchema';

@@ -96,7 +96,7 @@ import { dbConnect } from "@/lib/dbConnect";
 import { ${ModelName} } from "@/models/${ModelName}";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { checkPermission, PERMISSIONS, hasPermission } from "@/lib/rbac";
+import { PERMISSIONS, hasPermission } from "@/lib/rbac";
 import { withDynamicModels, getModelForApi } from "@/lib/apiUtils";
 ${importRefModels}
 ${hasPasswordField ? 'import bcrypt from "bcryptjs";' : ''}
