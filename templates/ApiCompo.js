@@ -68,7 +68,7 @@ export const generateApiCode = (modelName, fields) => {
   
     const refModels = refFields.map((f) => f.refModel);
     const importRefModels = refModels.length > 0
-      ? `import { ${[...new Set(refModels)].join(", ")} } from "@/models/${refModels}";`
+      ? [...new Set(refModels)].map(model => `import { ${model} } from "@/models/${model}";`).join('\n')
       : "";
 
     // Check if there's a password field

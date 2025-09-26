@@ -1,6 +1,5 @@
-import mongoose from 'mongoose';
 import { Role } from '@/models/Role';
-import { dbConnect } from '@/lib/dbConnect';
+import { connectDB } from '@/lib/db';
 import ModelSchema from '@/models/ModelSchema';
 import { hasPermission, PERMISSIONS, updateRBACFromRole } from '@/lib/rbac';
 import { getServerSession } from 'next-auth';

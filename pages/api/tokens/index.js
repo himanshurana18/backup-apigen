@@ -1,4 +1,4 @@
-import { dbConnect } from "@/lib/dbConnect";
+import { connectDB } from "@/lib/db";
 import APIToken from "@/models/APIToken";
 import { v4 as uuidv4 } from "uuid";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
@@ -15,7 +15,7 @@ const checkAuth = async (req, res) => {
 };
 
 export default async function handler(req, res) {
-  await dbConnect();
+  await connectDB();
   const session = await checkAuth(req, res);
   if (!session) return;
 

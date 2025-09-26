@@ -1,24 +1,5 @@
-export const generateApiWithTokenSupport = (modelName, fields) => {
-  const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
-  const ModelName = capitalize(modelName);
-
-  const normalFields = fields.filter(f => !f.refModel).map(f => f.name);
-  const refFields = fields.filter(f => f.refModel);
-  const allFields = [...normalFields, ...refFields.map(f => f.name), "user"].join(", ");
-
-  // Get searchable fields (excluding image and file types)
-  const searchableFields = fields
-    .filter(f => !f.refModel && f.datatype !== 'toggleinput' && f.datatype !== 'multiimageselect' && f.datatype !== "stringweblink" && f.datatype !== "password")
-    .map(f => f.name);
-  const searchFieldsString = searchableFields.map(f => `'${f}'`).join(', ');
-
-  // Get reference field names
-  const refFieldNames = refFields.map(f => f.name);
-  const refFieldNamesString = refFieldNames.map(f => `'${f}'`).join(', ');
-
-  return `
 import { dbConnect } from "@/lib/dbConnect";
-import { ${ModelName} } from "@/models/${ModelName}";
+import { User } from "@/models/user";
 import { verifyApiToken } from "@/lib/verifyApiToken";
 import Cors from 'cors';
 
@@ -80,8 +61,8 @@ export default async function handler(req, res) {
       } = req.query;
 
       if (id) {
-        let query = ${ModelName}.findById(id);
-        const refFields = [${refFieldNamesString}];
+        let query = User.findById(id);
+        const refFields = [];
         if (refFields.length) {
           refFields.forEach(field => {
             query = query.populate(field);
@@ -99,7 +80,7 @@ export default async function handler(req, res) {
       
       // Handle search
       if (search && typeof search === 'string') {
-        const searchableFields = [${searchFieldsString}];
+        const searchableFields = ['firstname', 'lastname', 'email'];
         query.$or = searchableFields.map(field => ({
           [field]: { $regex: search, $options: 'i' }
         }));
@@ -129,7 +110,7 @@ export default async function handler(req, res) {
       // Handle custom populate
       const customPopulate = populateFields ? 
         populateFields.split(',').map(field => field.trim()) : 
-        [${refFieldNamesString}];
+        [];
 
       // Handle sorting
       const sortFields = sort.split(',').map(field => {
@@ -138,8 +119,8 @@ export default async function handler(req, res) {
         return [fieldName, order];
       });
 
-      const total = await ${ModelName}.countDocuments(query);
-      let queryBuilder = ${ModelName}.find(query)
+      const total = await User.countDocuments(query);
+      let queryBuilder = User.find(query)
         .select(selectFields)
         .sort(sortFields)
         .skip((page - 1) * limit)
@@ -169,8 +150,8 @@ export default async function handler(req, res) {
         return res.status(403).json({ error: "Permission denied" });
       }
 
-      const { ${allFields}, seoTitle, seoDescription, focusKeywords, canonicalUrl, metaRobots, openGraphTitle, openGraphDescription } = req.body;
-      const doc = await ${ModelName}.create({ ${allFields}, seoTitle, seoDescription, focusKeywords, canonicalUrl, metaRobots, openGraphTitle, openGraphDescription });
+      const { firstname, lastname, password, email, block, userRole, user, seoTitle, seoDescription, focusKeywords, canonicalUrl, metaRobots, openGraphTitle, openGraphDescription } = req.body;
+      const doc = await User.create({ firstname, lastname, password, email, block, userRole, user, seoTitle, seoDescription, focusKeywords, canonicalUrl, metaRobots, openGraphTitle, openGraphDescription });
       return res.json(doc);
     }
 
@@ -179,8 +160,8 @@ export default async function handler(req, res) {
         return res.status(403).json({ error: "Permission denied" });
       }
 
-      const { _id, ${allFields}, seoTitle, seoDescription, focusKeywords, canonicalUrl, metaRobots, openGraphTitle, openGraphDescription } = req.body;
-      await ${ModelName}.updateOne({ _id }, { ${allFields}, seoTitle, seoDescription, focusKeywords, canonicalUrl, metaRobots, openGraphTitle, openGraphDescription });
+      const { _id, firstname, lastname, password, email, block, userRole, user, seoTitle, seoDescription, focusKeywords, canonicalUrl, metaRobots, openGraphTitle, openGraphDescription } = req.body;
+      await User.updateOne({ _id }, { firstname, lastname, password, email, block, userRole, user, seoTitle, seoDescription, focusKeywords, canonicalUrl, metaRobots, openGraphTitle, openGraphDescription });
       return res.json(true);
     }
 
@@ -190,7 +171,7 @@ export default async function handler(req, res) {
       }
 
       const { id } = req.query;
-      await ${ModelName}.deleteOne({ _id: id });
+      await User.deleteOne({ _id: id });
       return res.json(true);
     }
 
@@ -200,5 +181,3 @@ export default async function handler(req, res) {
     res.status(500).json({ error: 'Internal server error', message: error.message });
   }
 }
-  `.trim();
-};

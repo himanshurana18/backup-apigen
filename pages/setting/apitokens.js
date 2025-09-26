@@ -154,6 +154,70 @@ export default function APITokens() {
                                     <li><code>populate</code> - Populate reference fields (comma-separated)</li>
                                 </ul>
                             </div>
+                        </div>
+
+                        {/* POST Endpoint */}
+                        <div className="endpoint_method">
+                            <span className="method post">POST</span>
+                            <code>/api/public/blog</code>
+                            <p>Create a new item</p>
+                        </div>
+
+                        {/* PUT Endpoint */}
+                        <div className="endpoint_method">
+                            <span className="method put">PUT</span>
+                            <code>/api/public/modelName</code>
+                            <p>Update an existing item</p>
+                        </div>
+
+                        {/* DELETE Endpoint */}
+                        <div className="endpoint_method">
+                            <span className="method delete">DELETE</span>
+                            <code>/api/public/modelName?id=</code>
+                            <p>Delete an item</p>
+                        </div>
+
+                        {/* Authentication */}
+                        <div className="auth_section">
+                            <h3>Authentication</h3>
+                            <p>All API requests require an API token in the Authorization header:</p>
+                            <pre>
+                                {`Authorization: Bearer your_api_token_here`}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    const renderApiGuide = () => {
+        return (
+            <div className="api_guide_section">
+                <h2>API Documentation</h2>
+                <div className="api_endpoints">
+                    <div className="endpoint_card">
+                        <h3>API Endpoints</h3>
+
+                        {/* GET Endpoint */}
+                        <div className="endpoint_method">
+                            <span className="method get">GET</span>
+                            <code>/api/public/blog</code>
+                            <p>Get items with pagination, search, and filtering</p>
+                            <div className="params">
+                                <h4>Query Parameters:</h4>
+                                <ul>
+                                    <li><code>id</code> - Get single item by ID</li>
+                                    <li><code>page</code> - Page number (default: 1)</li>
+                                    <li><code>limit</code> - Items per page (default: 10)</li>
+                                    <li><code>user</code> - Filter by user ID</li>
+                                    <li><code>search</code> - Search across all text fields</li>
+                                    <li><code>sort</code> - Sort field (default: '-createdAt')</li>
+                                    <li><code>fields</code> - Select specific fields (comma-separated)</li>
+                                    <li><code>filter</code> - JSON string for custom filtering</li>
+                                    <li><code>populate</code> - Populate reference fields (comma-separated)</li>
+                                </ul>
+                            </div>
                             <div className="example">
                                 <h4>Example Requests:</h4>
                                 <div className="example_group">
