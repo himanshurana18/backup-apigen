@@ -1,10 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
-  experimental: {
-    serverComponentsExternalPackages: ['mongoose', 'mongodb']
-  },
+  serverExternalPackages: ['mongoose', 'mongodb'],
   env: {
     MONGODB_URI: process.env.MONGODB_URI,
     API_SECURE_JWT: process.env.API_SECURE_JWT,
